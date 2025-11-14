@@ -1,8 +1,15 @@
 package com.example.demo.entity;
 
-public class Funcionario {
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-    private int idFuncionario;
+@Entity
+public class Funcionario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idFuncionario;
     private String nomeFuncionario;
 
     public Funcionario(int idFuncionario, String nomeFuncionario) {
@@ -13,27 +20,27 @@ public class Funcionario {
 
     public void setNomeFuncionario(String nomeFuncionario) {
         if(nomeFuncionario.isEmpty()||nomeFuncionario.isBlank()){
-            System.out.println("invalido");
+            throw new IllegalArgumentException("invalido");
 
         }else{
             this.nomeFuncionario = nomeFuncionario;
         }
     }
 
-    public int getIdFuncionario() {
+    public long getIdFuncionario() {
         return idFuncionario;
     }
 
     public void setIdFuncionario(int idFuncionario) {
         if(idFuncionario==0){
-            System.out.println("invalido");
+            throw new IllegalArgumentException("invalido");
 
         }else{
             this.idFuncionario = idFuncionario;
         }
     }
 
-    public Funcionario(int idFuncionario) {
+    public Funcionario(long idFuncionario) {
         this.idFuncionario = idFuncionario;
     }
 
