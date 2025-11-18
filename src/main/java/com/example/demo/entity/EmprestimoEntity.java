@@ -1,30 +1,31 @@
 package com.example.demo.entity;
 
-import com.example.demo.Entity.Funcionario;
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+
 import java.time.LocalDateTime;
 
 @Entity
-public class Emprestimo {
+public class EmprestimoEntity {
 
-    public Emprestimo() {}
+    public EmprestimoEntity() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idEmprestimo;
 
     @ManyToOne
-    private Funcionario funcionario;
+    private FuncionarioEntity funcionario;
 
     @ManyToOne
-    private EPI epi;
+    private EpiEntity epi;
 
     private LocalDateTime dataEmprestimo;
     private  LocalDateTime dataDevolucao;
 
     private boolean devolvido;
 
-    public Emprestimo(long idEmprestimo, Funcionario funcionario, String EPI,  LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, boolean devolvido) {
+    public EmprestimoEntity(long idEmprestimo, FuncionarioEntity funcionario, String EPI,  LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, boolean devolvido) {
         this.idEmprestimo = idEmprestimo;
         this.funcionario = funcionario;
         this.epi = epi;
@@ -47,11 +48,11 @@ public class Emprestimo {
         }
     }
 
-    public Funcionario getFuncionario() {
+    public FuncionarioEntity getFuncionario() {
         return funcionario;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
+    public void setFuncionario(FuncionarioEntity funcionario) {
         if (funcionario == null) {
             throw new IllegalArgumentException("invalido");
 
@@ -61,13 +62,13 @@ public class Emprestimo {
         }
     }
 
-    public EPI getEPI() {
+    public EpiEntity getEPI() {
 
         return epi;
     }
 
 
-    public void setEPI(EPI EPI) {
+    public void setEpi(EpiEntity EPI) {
         if (EPI == null) {
             throw new IllegalArgumentException("invalido");
 

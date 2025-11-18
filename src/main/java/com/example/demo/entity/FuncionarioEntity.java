@@ -1,4 +1,4 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,18 +7,20 @@ import jakarta.persistence.Id;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
-public class Funcionario {
+public class FuncionarioEntity {
 
-    public Funcionario() {}
+    public FuncionarioEntity() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idFuncionario;
     private String nomeFuncionario;
+    private String email;
 
-    public Funcionario(int idFuncionario, String nomeFuncionario) {
+    public FuncionarioEntity(int idFuncionario, String nomeFuncionario) {
         this.idFuncionario = idFuncionario;
         this.nomeFuncionario = nomeFuncionario;
+        this.email = email;
 
     }
 
@@ -35,6 +37,17 @@ public class Funcionario {
         return idFuncionario;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        if(email.isEmpty()||email.isBlank()){
+            throw new IllegalArgumentException("email invalido");
+        }
+
+    }
+
     public void setIdFuncionario(int idFuncionario) {
         if(idFuncionario==0){
             throw new IllegalArgumentException("invalido");
@@ -42,17 +55,20 @@ public class Funcionario {
         }else{
             this.idFuncionario = idFuncionario;
         }
+
     }
 
-    public Funcionario(long idFuncionario) {
+    public FuncionarioEntity(long idFuncionario) {
         this.idFuncionario = idFuncionario;
     }
 
+
     @Override
     public String toString() {
-        return "Funcionario{" +
+        return "FuncionarioEntity{" +
                 "idFuncionario=" + idFuncionario +
                 ", nomeFuncionario='" + nomeFuncionario + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
