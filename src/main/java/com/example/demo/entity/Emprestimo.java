@@ -1,14 +1,15 @@
-package com.example.demo.entity;
+package com.example.demo.Entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.example.demo.Entity.Funcionario;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class Emprestimo {
+
+    public Emprestimo() {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idEmprestimo;
@@ -25,12 +26,12 @@ public class Emprestimo {
     private boolean devolvido;
 
     public Emprestimo(long idEmprestimo, Funcionario funcionario, EPI EPI,  LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, boolean devolvido) {
-this.idEmprestimo = idEmprestimo;
-this.funcionario = funcionario;
-this.EPI = EPI;
-this.dataEmprestimo = dataEmprestimo;
-this.dataDevolucao = dataDevolucao;
-this.devolvido = devolvido;
+        this.idEmprestimo = idEmprestimo;
+        this.funcionario = funcionario;
+        this.EPI = EPI;
+        this.dataEmprestimo = dataEmprestimo;
+        this.dataDevolucao = dataDevolucao;
+        this.devolvido = devolvido;
     }
 
     public long getIdEmprestimo() {
@@ -113,7 +114,7 @@ this.devolvido = devolvido;
         // PRA ACERTAR...
 
         this.devolvido = devolvido;
-        }
+    }
 
     @Override
     public String toString() {
