@@ -1,8 +1,7 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import com.example.demo.Entity.Funcionario;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,17 +17,17 @@ public class Emprestimo {
     private Funcionario funcionario;
 
     @ManyToOne
-    private EPI EPI;
+    private EPI epi;
 
     private LocalDateTime dataEmprestimo;
     private  LocalDateTime dataDevolucao;
 
     private boolean devolvido;
 
-    public Emprestimo(long idEmprestimo, Funcionario funcionario, EPI EPI,  LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, boolean devolvido) {
+    public Emprestimo(long idEmprestimo, Funcionario funcionario, String EPI,  LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, boolean devolvido) {
         this.idEmprestimo = idEmprestimo;
         this.funcionario = funcionario;
-        this.EPI = EPI;
+        this.epi = epi;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
         this.devolvido = devolvido;
@@ -63,15 +62,17 @@ public class Emprestimo {
     }
 
     public EPI getEPI() {
-        return EPI;
+
+        return epi;
     }
+
 
     public void setEPI(EPI EPI) {
         if (EPI == null) {
             throw new IllegalArgumentException("invalido");
 
         } else {
-            this.EPI = EPI;
+            this.epi = EPI;
 
         }
     }
@@ -121,7 +122,7 @@ public class Emprestimo {
         return "Emprestimo{" +
                 "idEmprestimo=" + idEmprestimo +
                 ", funcionario=" + funcionario +
-                ", EPI=" + EPI +
+                ", EPI=" + epi +
                 ", dataEmprestimo=" + dataEmprestimo +
                 ", dataDevolucao=" + dataDevolucao +
                 ", devolvido=" + devolvido +
