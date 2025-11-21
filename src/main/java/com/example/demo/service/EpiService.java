@@ -6,6 +6,7 @@ import com.example.demo.entity.EpiEntity;
 import com.example.demo.repo.EpiRepo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -17,7 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EpiService {
 
-    private final EpiRepo epiRepo;
+
+    @Autowired
+    private EpiRepo epiRepo;
 
     //CREATE
 
@@ -42,7 +45,7 @@ public class EpiService {
         List<EpiDto.EpiResponseDto> resposta = new ArrayList<>();
 
         for (EpiEntity e : lista) {
-            EpiDto.EpiResponseDto dto = new EpiResponseDto();
+            EpiDto.EpiResponseDto dto = new EpiDto.EpiResponseDto();
             dto.setIdEpi(e.getIdEpi());
             dto.setNome(e.getNome());
             dto.setQtdDisponivel(e.getQtdDisponivel());
@@ -52,10 +55,10 @@ public class EpiService {
         return resposta;
     }
     //UPTADE
-    public void atualizarEpi(int id, @Valid EpiDto dto) {
-        EpiEntity epi = epiRepo.findById(id).orElseThrow(() -> new RuntimeException("Epi não encontrado");
+    public void atualizarEpi(long id, @Valid EpiDto dto) {
+        EpiEntity epi = epiRepo.findById(id).orElseThrow(() -> new RuntimeException("Epi não encontrado"));
 
-        if (epiRepo.existsByNome(dto.getNome())) {
+        if (epiRepo.existsByNomeAndIdEpiNot(dto.getNome(), id)){
             throw new RuntimeException("Nome do Epi já cadastrado");
         }
 
@@ -66,8 +69,12 @@ public class EpiService {
         epiRepo.save(epi);
     }
     //DELETE
-    public void deletarEpi(int id) {
-        epiRepo.deleteById(id).orElseThrow(() -> new RuntimeException("Epi não existe!"));
+    public void deletarEpi(long id) {
+        if(!epiRepo.existsById(id)) {
+            throw new RuntimeException("Epi não existe!");
+        }
+
+        epiRepo.deleteById(id);
     }
 
 
