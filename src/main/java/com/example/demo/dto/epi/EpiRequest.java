@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 public class EpiRequest {
 
+    private int idEpi;
     @NotBlank
     private String nomeEpi;
     @NotNull

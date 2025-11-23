@@ -7,6 +7,7 @@ import com.example.demo.repo.EpiRepo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.JdbcTransactionObjectSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -25,7 +26,7 @@ public class EpiService {
     //CREATE
 
     public void cadastrarEpi(@Valid EpiResponse cadastrarEpiDto) {
-        if(epiRepo.existsByNome(EpiResponse(nomeEpi))) {
+        if(epiRepo.existsByNome(cadastrarEpiDto.getNomeEpi())) {
             throw new RuntimeException("Epi já cadastrado!");
         }
 
@@ -40,16 +41,17 @@ public class EpiService {
 
     }
     //READ
-    public List<EpiResponse.EpiResponseDto> listarEpis() {
+    public List<EpiResponse> listarEpis() {
         List<EpiEntity> lista = epiRepo.findAll();
-        List<EpiResponse.EpiResponseDto> resposta = new ArrayList<>();
+        List<EpiResponse> resposta = new ArrayList<>();
 
         for (EpiEntity e : lista) {
-            EpiResponse.EpiResponseDto dto = new EpiResponse.EpiResponseDto();
+            EpiResponse dto= new EpiResponse();
             dto.setIdEpi(e.getIdEpi());
-            dto.setNome(e.getNome());
+            dto.setNomeEpi(e.getNome());
             dto.setQtdDisponivel(e.getQtdDisponivel());
             dto.setQtdTotal(e.getQtdTotal());
+
             resposta.add(dto);
         }
         return resposta;
@@ -58,11 +60,11 @@ public class EpiService {
     public void atualizarEpi(long id, @Valid EpiResponse dto) {
         EpiEntity epi = epiRepo.findById(id).orElseThrow(() -> new RuntimeException("Epi não encontrado"));
 
-        if (epiRepo.existsByNomeAndIdEpiNot(dto.getNome(), id)){
+        if (epiRepo.existsByNomeAndIdEpiNot(dto.getNomeEpi(), id)){
             throw new RuntimeException("Nome do Epi já cadastrado");
         }
 
-        epi.setNome(dto.getNome());
+        epi.setNome(dto.getNomeEpi());
         epi.setQtdDisponivel(dto.getQtdDisponivel());
         epi.setQtdTotal(dto.getQtdTotal());
 
