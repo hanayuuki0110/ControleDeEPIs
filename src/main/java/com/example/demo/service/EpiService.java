@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 
-import com.example.demo.dto.EpiDto;
+import com.example.demo.dto.epi.EpiResponse;
 import com.example.demo.entity.EpiEntity;
 import com.example.demo.repo.EpiRepo;
 import jakarta.validation.Valid;
@@ -24,28 +24,28 @@ public class EpiService {
 
     //CREATE
 
-    public void cadastrarEpi(@Valid EpiDto dto) {
-        if(epiRepo.existsByNome(dto.getNome())) {
+    public void cadastrarEpi(@Valid EpiResponse cadastrarEpiDto) {
+        if(epiRepo.existsByNome(EpiResponse(nomeEpi))) {
             throw new RuntimeException("Epi já cadastrado!");
         }
 
         EpiEntity epi = new EpiEntity();
 
-        epi.setNome(dto.getNome());
-        epi.setDevolvido(dto.getDevolvido());
-        epi.setDataDevolucao(dto.getDataDevolucao());
-        epi.setDataEmprestimo(dto.getDataEmprestimo());
+        epi.setNome(epi.getNome());
+        epi.setDevolvido(epi.isDevolvido());
+        epi.setDataDevolucao(epi.getDataDevolucao());
+        epi.setDataEmprestimo(epi.getDataEmprestimo());
         epiRepo.save(epi);
 
 
     }
     //READ
-    public List<EpiDto.EpiResponseDto> listarEpis() {
+    public List<EpiResponse.EpiResponseDto> listarEpis() {
         List<EpiEntity> lista = epiRepo.findAll();
-        List<EpiDto.EpiResponseDto> resposta = new ArrayList<>();
+        List<EpiResponse.EpiResponseDto> resposta = new ArrayList<>();
 
         for (EpiEntity e : lista) {
-            EpiDto.EpiResponseDto dto = new EpiDto.EpiResponseDto();
+            EpiResponse.EpiResponseDto dto = new EpiResponse.EpiResponseDto();
             dto.setIdEpi(e.getIdEpi());
             dto.setNome(e.getNome());
             dto.setQtdDisponivel(e.getQtdDisponivel());
@@ -55,7 +55,7 @@ public class EpiService {
         return resposta;
     }
     //UPTADE
-    public void atualizarEpi(long id, @Valid EpiDto dto) {
+    public void atualizarEpi(long id, @Valid EpiResponse dto) {
         EpiEntity epi = epiRepo.findById(id).orElseThrow(() -> new RuntimeException("Epi não encontrado"));
 
         if (epiRepo.existsByNomeAndIdEpiNot(dto.getNome(), id)){
