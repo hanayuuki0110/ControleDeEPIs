@@ -1,5 +1,13 @@
 package com.example.demo.dto.funcionario;
 
+import lombok.Data;
+
+@Data
 public class FuncionarioResponse {
-    public record Response(String nomeFuncionario, String email) {}
+
+    private long idFuncionario;
+
+    private String nomeFuncionario;
+
+    private String email;
 }

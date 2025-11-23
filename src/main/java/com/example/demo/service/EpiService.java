@@ -7,7 +7,6 @@ import com.example.demo.repo.EpiRepo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.JdbcTransactionObjectSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 

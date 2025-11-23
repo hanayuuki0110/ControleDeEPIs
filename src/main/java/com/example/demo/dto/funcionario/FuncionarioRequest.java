@@ -6,6 +6,10 @@ import lombok.Data;
 
 @Data
 public class FuncionarioRequest {
+
+    @NotBlank
+    @NotNull
+    private long idFuncionario;
     @NotBlank
     @NotNull
     private String nomeFuncionario;

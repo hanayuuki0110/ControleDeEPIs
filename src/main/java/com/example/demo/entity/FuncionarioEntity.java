@@ -17,7 +17,7 @@ public class FuncionarioEntity {
     private String nomeFuncionario;
     private String email;
 
-    public FuncionarioEntity(int idFuncionario, String nomeFuncionario) {
+    public FuncionarioEntity(long idFuncionario, String nomeFuncionario) {
         this.idFuncionario = idFuncionario;
         this.nomeFuncionario = nomeFuncionario;
         this.email = email;
@@ -48,7 +48,7 @@ public class FuncionarioEntity {
 
     }
 
-    public void setIdFuncionario(int idFuncionario) {
+    public void setIdFuncionario(long idFuncionario) {
         if(idFuncionario==0){
             throw new IllegalArgumentException("invalido");
 
@@ -58,10 +58,10 @@ public class FuncionarioEntity {
 
     }
 
-    public FuncionarioEntity(long idFuncionario) {
-        this.idFuncionario = idFuncionario;
-    }
 
+    public String getNomeFuncionario() {
+        return nomeFuncionario;
+    }
 
     @Override
     public String toString() {
