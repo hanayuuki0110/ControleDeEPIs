@@ -112,9 +112,6 @@ public class EmprestimoEntity {
     }
 
     public void setDevolvido(boolean devolvido) {
-
-        // PRA ACERTAR...
-
         this.devolvido = devolvido;
     }
 
