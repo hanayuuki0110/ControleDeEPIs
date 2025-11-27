@@ -7,7 +7,7 @@ public interface EpiRepo extends JpaRepository<EpiEntity, Long> {
 
     boolean existsByNome(String nome);
 
-    boolean existsByNomeAndIdEpiNot(String nome,long idEpi);
+    boolean existsByIdEpi(Long idEpi);
 
 
 

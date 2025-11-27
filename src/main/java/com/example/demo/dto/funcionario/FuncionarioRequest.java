@@ -17,4 +17,5 @@ public class FuncionarioRequest {
     @NotNull
     private String email;
 
+
 }

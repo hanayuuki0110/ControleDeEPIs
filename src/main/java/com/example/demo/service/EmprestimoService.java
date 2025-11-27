@@ -4,6 +4,7 @@ import com.example.demo.dto.emprestimo.EmprestimoResponse;
 import com.example.demo.entity.EmprestimoEntity;
 import com.example.demo.repo.EmprestimoRepo;
 import jakarta.validation.Valid;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,8 @@ public class EmprestimoService {
     @Autowired
     private EmprestimoRepo emprestimoRepo;
 
-    public void cadastrarEmprestimo(@Valid EmprestimoResponse cadastrarEmprestimoDto){
-        if(emprestimoRepo.existsByIdEpi(cadastrarEmprestimoDto.getIdEpi())){
+    public void cadastrarEmprestimo(@Valid EmprestimoResponse cadastrarEmprestimoDto) {
+        if (emprestimoRepo.existsByIdEmprestimo(cadastrarEmprestimoDto.getIdEpi())) {
             throw new RuntimeException("epi ja emprestada");
 
 
@@ -28,6 +29,5 @@ public class EmprestimoService {
         emprestimo.setEpi(cadastrarEmprestimoDto.getEpi());
         emprestimo.setIdEmprestimo(cadastrarEmprestimoDto.getIdEmprestimo());
         emprestimo.setFuncionario(cadastrarEmprestimoDto.getFuncionario());
-        emprestimo.setDataEmprestimo(cadastrarEmprestimoDto.);
     }
 }

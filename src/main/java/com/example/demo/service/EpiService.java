@@ -31,7 +31,6 @@ public class EpiService {
         EpiEntity epi = new EpiEntity();
 
         epi.setNome(epi.getNome());
-        epi.setDevolvido(epi.isDevolvido());
         epi.setDataDevolucao(epi.getDataDevolucao());
         epi.setDataEmprestimo(epi.getDataEmprestimo());
         epiRepo.save(epi);
@@ -58,8 +57,8 @@ public class EpiService {
     public void atualizarEpi(long id, @Valid EpiResponse dto) {
         EpiEntity epi = epiRepo.findById(id).orElseThrow(() -> new RuntimeException("Epi não encontrado"));
 
-        if (epiRepo.existsByNomeAndIdEpiNot(dto.getNomeEpi(), id)){
-            throw new RuntimeException("Nome do Epi já cadastrado");
+        if (epiRepo.existsById(id)){
+            throw new RuntimeException("Epi já cadastrado");
         }
 
         epi.setNome(dto.getNomeEpi());

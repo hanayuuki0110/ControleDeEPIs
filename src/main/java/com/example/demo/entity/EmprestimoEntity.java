@@ -20,12 +20,12 @@ public class EmprestimoEntity {
     @ManyToOne
     private EpiEntity epi;
 
-    private LocalDateTime dataEmprestimo;
-    private  LocalDateTime dataDevolucao;
+    private String dataEmprestimo;
+    private  String dataDevolucao;
 
     private boolean devolvido;
 
-    public EmprestimoEntity(long idEmprestimo, FuncionarioEntity funcionario, String EPI,  LocalDateTime dataEmprestimo, LocalDateTime dataDevolucao, boolean devolvido) {
+    public EmprestimoEntity(long idEmprestimo, FuncionarioEntity funcionario, String EPI,  String dataEmprestimo, String dataDevolucao, boolean devolvido) {
         this.idEmprestimo = idEmprestimo;
         this.funcionario = funcionario;
         this.epi = epi;
@@ -70,39 +70,10 @@ public class EmprestimoEntity {
 
     public void setEpi(EpiEntity EPI) {
         if (EPI == null) {
-            throw new IllegalArgumentException("invalido");
+            throw new IllegalArgumentException("epi invalido");
 
         } else {
             this.epi = EPI;
-
-        }
-    }
-
-    public LocalDateTime getDataEmprestimo() {
-        return dataEmprestimo;
-
-    }
-
-    public void setDataEmprestimo(LocalDateTime dataEmprestimo) {
-        if (dataEmprestimo == null) {
-            throw new IllegalArgumentException("invalido");
-
-        } else {
-            this.dataEmprestimo = dataEmprestimo;
-
-        }
-    }
-
-    public LocalDateTime getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(LocalDateTime dataDevolucao) {
-        if (dataDevolucao == null) {
-            throw new IllegalArgumentException("invalido");
-
-        } else {
-            this.dataDevolucao = dataDevolucao;
 
         }
     }
@@ -111,8 +82,35 @@ public class EmprestimoEntity {
         return devolvido;
     }
 
-    public void setDevolvido(boolean devolvido) {
-        this.devolvido = devolvido;
+    public EpiEntity getEpi() {
+        return epi;
+    }
+
+    public String getDataEmprestimo() {
+        return dataEmprestimo;
+    }
+
+    public String getDataDevolucao() {
+        return dataDevolucao;
+    }
+
+    public void setDataDevolucao(String dataDevolucao) {
+        if (dataDevolucao == null) {
+            throw new IllegalArgumentException("dataDevolucao invalido");
+        }else {
+            this.dataDevolucao = dataDevolucao;
+        }
+    }
+
+    public void setDataEmprestimo(String dataEmprestimo) {
+        if (dataEmprestimo == null) {
+            throw new IllegalArgumentException("dataEmprestimo invalido");
+
+        }else{
+            this.dataEmprestimo = dataEmprestimo;
+        }
+
+
     }
 
     @Override
