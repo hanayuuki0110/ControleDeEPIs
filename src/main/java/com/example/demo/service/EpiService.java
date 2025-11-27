@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.epi.EpiRequest;
 import com.example.demo.dto.epi.EpiResponse;
 import com.example.demo.entity.EpiEntity;
 import com.example.demo.repo.EpiRepo;
@@ -23,7 +24,7 @@ public class EpiService {
 
     //CREATE
 
-    public void cadastrarEpi(@Valid EpiResponse cadastrarEpiDto) {
+    public void cadastrarEpi(@Valid EpiRequest cadastrarEpiDto) {
         if(epiRepo.existsByNome(cadastrarEpiDto.getNomeEpi())) {
             throw new RuntimeException("Epi já cadastrado!");
         }
@@ -31,6 +32,7 @@ public class EpiService {
         EpiEntity epi = new EpiEntity();
 
         epi.setNome(epi.getNome());
+        epi.getIdEpi();
         epi.setDataDevolucao(epi.getDataDevolucao());
         epi.setDataEmprestimo(epi.getDataEmprestimo());
         epiRepo.save(epi);

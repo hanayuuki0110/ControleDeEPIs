@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.funcionario.FuncionarioRequest;
 import com.example.demo.dto.funcionario.FuncionarioResponse;
 import com.example.demo.entity.FuncionarioEntity;
 import com.example.demo.repo.FuncionarioRepo;
@@ -70,4 +71,10 @@ public void deletarFuncionario(Integer id){
         }
         funcionarioRepo.deleteById(id);
 }
+
+    public void cadastrarFuncionario(FuncionarioRequest funcionarioRequest) {
+    }
+
+
+
 }
