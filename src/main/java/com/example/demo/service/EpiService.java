@@ -19,22 +19,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EpiService {
 
-    @Autowired
-    private EpiRepo epiRepo;
+
+    private final EpiRepo epiRepo;
 
     //CREATE
 
-    public void cadastrarEpi(@Valid EpiRequest cadastrarEpiDto) {
-        if(epiRepo.existsByNome(cadastrarEpiDto.getNomeEpi())) {
+    public void cadastrarEpi(EpiRequest cadastrarEpiDto) {
+        if(epiRepo.existsByNomeEpi(cadastrarEpiDto.getNomeEpi())) {
             throw new RuntimeException("Epi já cadastrado!");
         }
 
         EpiEntity epi = new EpiEntity();
 
-        epi.setNome(epi.getNome());
-        epi.getIdEpi();
-        epi.setDataDevolucao(epi.getDataDevolucao());
-        epi.setDataEmprestimo(epi.getDataEmprestimo());
+        epi.setNomeEpi(cadastrarEpiDto.getNomeEpi());
+        epi.setQtdTotal(cadastrarEpiDto.getQtdTotal());
+        epi.setQtdDisponivel(cadastrarEpiDto.getQtdTotal());
+        epi.setDataEmprestimo(cadastrarEpiDto.getDataDevolucao());
         epiRepo.save(epi);
 
 
@@ -47,7 +47,7 @@ public class EpiService {
         for (EpiEntity e : lista) {
             EpiResponse dto= new EpiResponse();
             dto.setIdEpi(e.getIdEpi());
-            dto.setNomeEpi(e.getNome());
+            dto.setNomeEpi(e.getNomeEpi());
             dto.setQtdDisponivel(e.getQtdDisponivel());
             dto.setQtdTotal(e.getQtdTotal());
 
@@ -63,7 +63,7 @@ public class EpiService {
             throw new RuntimeException("Epi já cadastrado");
         }
 
-        epi.setNome(dto.getNomeEpi());
+        epi.setNomeEpi(dto.getNomeEpi());
         epi.setQtdDisponivel(dto.getQtdDisponivel());
         epi.setQtdTotal(dto.getQtdTotal());
 

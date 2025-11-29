@@ -3,10 +3,9 @@ package com.example.demo.repo;
 import com.example.demo.entity.FuncionarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FuncionarioRepo extends JpaRepository<FuncionarioEntity, Integer> {
+public interface FuncionarioRepo extends JpaRepository<FuncionarioEntity, Long> {
 
-    boolean existsById(long id);
-    boolean existsByIdAndNome(String nome, int id);
+    boolean existsById(Long id);
     boolean existsByEmail(String email);
 
 }

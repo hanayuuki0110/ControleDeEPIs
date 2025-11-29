@@ -8,11 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 
-@SpringBootApplication
+@Component
 @RequiredArgsConstructor
     public class Menu implements CommandLineRunner {
 
@@ -22,7 +23,6 @@ import java.util.Scanner;
 
         @Override
         public void run(String[] args) throws Exception {
-
             Scanner sc = new Scanner(System.in);
 
             while (true) {
@@ -38,44 +38,74 @@ import java.util.Scanner;
                 sc.nextLine();
 
                 switch (opcao) {
-                    case 1 -> {
-                        System.out.println("Nome do Epi: ");
-                        String nome = sc.nextLine();
-                        EpiRequest req = new EpiRequest();
-                        req.setNomeEpi(nome);
+                    case 1:
+                        cadastrarEpi(sc);
+                        break;
 
-                        epiService.cadastrarEpi();
-                        System.out.println("Epi cadastrado com sucesso!");
-                    }
+                    case 2:
+                        listarEpi();
+                        break;
+                    case 3:
+                        cadastrarFuncionario(sc);
+                        break;
 
-                    case 2 -> {
-                        var lista = epiService.listarEpis();
-                        lista.forEach(System.out::println);
-                    }
+                    case 4:
+                        listarFuncionarios();
+                        break;
 
-                    case 3 -> {
-                        System.out.println("Nome do funcionário: ");
-                        String nomeFuncionario = sc.nextLine();
-                        FuncionarioRequest funcionarioRequest = new FuncionarioRequest();
-                        funcionarioRequest.setNomeFuncionario(nomeFuncionario);
+                    case 0:
+                        System.out.println("Encerrando o sistema...");
+                        System.out.println (0);
 
-                        funcionarioService.cadastrarFuncionario(funcionarioRequest);
-                        System.out.println("Funcionario cadastrado com sucesso!");
-                    }
 
-                    case 4 -> {
-                        var listaF = funcionarioService.listarFuncionarios();
-                        listaF.forEach(System.out::println);
-                    }
-
-                    case 0 -> {
-                        System.out.println("Finalizando operação....");
-                        sc.close();
-                        return;
-                    }
-
-                    default -> System.out.println("Opção Inválida ou indisponível !");
+                    default:
+                        System.out.println("Opção invállida ou Indisponível");
                 }
             }
         }
-    }
+
+        private void cadastrarEpi(Scanner sc) {
+            System.out.println("=== Cadastro de EPI ====");
+            System.out.println("Digite o nome do EPI:");
+            String nome = sc.nextLine();
+
+            System.out.println("Quantidade total (Estoque) : ");
+            int qtd = sc.nextInt();
+            sc.nextLine();
+
+            EpiRequest epiRequest = new EpiRequest();
+            epiRequest.setNomeEpi(nome);
+            epiRequest.setQtdTotal(qtd);
+            epiRequest.setQtdDisponivel(qtd);
+
+            epiService.cadastrarEpi(epiRequest);
+            System.out.println("EPI cadastrado com sucesso!");
+
+        }
+
+        private void listarEpi() {
+            System.out.println("=== Listar EPI ====");
+            epiService.listarEpis().forEach(System.out::println);
+        }
+
+        private void cadastrarFuncionario(Scanner sc) {
+            System.out.println("=== Cadastro de Funcionário ====");
+            System.out.println("Nome do funcionário: ");
+            String nome = sc.nextLine();
+
+            System.out.println("Informe o Email:");
+            String email = sc.nextLine();
+
+            FuncionarioRequest funcionarioRequest = new FuncionarioRequest();
+            funcionarioRequest.setNomeFuncionario(nome);
+            funcionarioRequest.setEmail(email);
+
+            funcionarioService.cadastrarFuncionario(funcionarioRequest);
+            System.out.println("Funcionário cadastro com sucesso!");
+        }
+
+        private void listarFuncionarios() {
+            System.out.println("=== Listagem de EPIs ===");
+            funcionarioService.listarFuncionarios().forEach(System.out::println);
+        }
+}

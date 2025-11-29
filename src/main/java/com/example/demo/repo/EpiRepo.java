@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EpiRepo extends JpaRepository<EpiEntity, Long> {
 
-    boolean existsByNome(String nome);
+    boolean existsByNomeEpi(String nomeEpi);
 
     boolean existsByIdEpi(Long idEpi);
 
